@@ -1,6 +1,7 @@
 import Vue from 'vue'
 
 import router from '@/router'
+import Nav from './components/Nav/Nav'
 
 new Vue({
   router,
@@ -8,7 +9,15 @@ new Vue({
     return {
     }
   },
+  computed: {
+    links() {
+      return this.$router.options.routes || []
+    },
+  },
   render(h) {
-    return <router-view></router-view>
+    return <div>
+      <Nav links={this.links}></Nav>
+      <router-view></router-view>
+    </div>
   },
 }).$mount('#app')
