@@ -7,8 +7,11 @@ namespace JSX {
 
   // 给组件增加属性
   interface IntrinsicAttributes {
+    draggable?: boolean
     key?: string | number
     class?: string | string[]
+    on?: Record<string, () => void>
+    nativeOn?: Record<string, () => void>
   }
 
   interface ElementAttributesProperty {

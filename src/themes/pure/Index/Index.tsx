@@ -17,9 +17,39 @@ export default class Index extends Vue {
       ],
     },
   ]
+
+  dragstart(e: DragEvent) {
+    console.log('ondragstart', e)
+  }
+
+  dragend(e: DragEvent) {
+    console.log('ondragend', e)
+  }
+
+  dragenter(e: DragEvent) {
+    console.log('ondragenter', e)
+  }
+
+  dragover(e: DragEvent) {
+    console.log('ondragover', e)
+  }
+
+  drop(e: DragEvent) {
+    console.log('ondrop', e)
+  }
+
+  dragleave(e: DragEvent) {
+    console.log('ondragleave', e)
+  }
+
   render(h: CreateElement) {
+    const { dragstart, dragend, dragenter, dragover, drop, dragleave } = this
+
     return <div>
-      <ul>
+      <ul on={{
+        dragend,
+        dragenter, dragover, drop, dragleave,
+      }}>
         {this.data.map(it => <TreeItem item={it}></TreeItem>)}
       </ul>
     </div>
