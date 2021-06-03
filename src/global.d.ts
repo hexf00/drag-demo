@@ -23,3 +23,9 @@ declare module '*.module.scss' {
 
 /** 函数式组件 */
 type FunctionalComponent<T> = (props: T | { props: T }) => void
+
+/** 树结构 */
+type ITree<T> = Array<ITreeItem<T>>
+
+/** 树结构Item */
+type ITreeItem<T> = T & { children: ITree<T> }
