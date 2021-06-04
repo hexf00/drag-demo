@@ -7,6 +7,9 @@ new Vue({
   router,
   data() {
     return {
+      item: null,
+      target: null,
+      pos: null,
     }
   },
   computed: {

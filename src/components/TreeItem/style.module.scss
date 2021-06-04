@@ -1,0 +1,40 @@
+$color: #fff;
+$activeColor: #ddd;
+
+.li {
+  border-left: 1px solid #ddd;
+  list-style: none;
+
+  &::before {
+    content: " ";
+    display: block;
+    border-top: 2px solid $color;
+  }
+  &::after {
+    content: " ";
+    display: block;
+    border-bottom: 2px solid $color;
+  }
+}
+
+.ondrag {
+  color: #ddd;
+}
+.ondrop {
+  &.before::before {
+    content: " ";
+    display: block;
+    border-top: 2px solid $activeColor;
+  }
+  &.inner::after {
+    content: " ";
+    display: block;
+    border-bottom: 2px solid $activeColor;
+    margin-left: 40px;
+  }
+  &.after::after {
+    content: " ";
+    display: block;
+    border-bottom: 2px solid $activeColor;
+  }
+}

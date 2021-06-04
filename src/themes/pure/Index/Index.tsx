@@ -23,7 +23,9 @@ export default class Index extends Vue {
   }
 
   dragend(e: DragEvent) {
-    console.log('ondragend', e)
+    // eslint-disable-next-line
+    // @ts-ignore
+    console.log('ondragend', this.$root.item, this.$root.target, e)
   }
 
   dragenter(e: DragEvent) {
@@ -32,6 +34,7 @@ export default class Index extends Vue {
 
   dragover(e: DragEvent) {
     console.log('ondragover', e)
+    e.preventDefault()
   }
 
   drop(e: DragEvent) {
@@ -47,8 +50,8 @@ export default class Index extends Vue {
 
     return <div>
       <ul on={{
+        drop,
         dragend,
-        dragenter, dragover, drop, dragleave,
       }}>
         {this.data.map(it => <TreeItem item={it}></TreeItem>)}
       </ul>
