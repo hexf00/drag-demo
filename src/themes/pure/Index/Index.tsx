@@ -19,13 +19,20 @@ export default class Index extends Vue {
   ]
 
   dragstart(e: DragEvent) {
+
     console.log('ondragstart', e)
   }
 
   dragend(e: DragEvent) {
     // eslint-disable-next-line
     // @ts-ignore
-    console.log('ondragend', this.$root.item, this.$root.target, e)
+    console.log('ondragend', this.$root.item, this.$root.target, this.$root.$data.pos, this.$root.$data.status, e)
+
+    this.$set(this.$root.$data, 'item', null)
+    this.$set(this.$root.$data, 'target', null)
+    this.$set(this.$root.$data, 'pos', null)
+    this.$set(this.$root.$data, 'status', false)
+
   }
 
   dragenter(e: DragEvent) {
@@ -37,20 +44,15 @@ export default class Index extends Vue {
     e.preventDefault()
   }
 
-  drop(e: DragEvent) {
-    console.log('ondrop', e)
-  }
-
   dragleave(e: DragEvent) {
     console.log('ondragleave', e)
   }
 
   render(h: CreateElement) {
-    const { dragstart, dragend, dragenter, dragover, drop, dragleave } = this
+    const { dragstart, dragend, dragenter, dragover, dragleave } = this
 
     return <div>
       <ul on={{
-        drop,
         dragend,
       }}>
         {this.data.map(it => <TreeItem item={it}></TreeItem>)}

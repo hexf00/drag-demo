@@ -7,6 +7,7 @@ new Vue({
   router,
   data() {
     return {
+      status: false,
       item: null,
       target: null,
       pos: null,

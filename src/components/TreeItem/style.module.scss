@@ -1,5 +1,5 @@
 $color: #fff;
-$activeColor: #ddd;
+$activeColor: #3e96e7;
 
 .li {
   border-left: 1px solid #ddd;
@@ -8,12 +8,14 @@ $activeColor: #ddd;
   &::before {
     content: " ";
     display: block;
-    border-top: 2px solid $color;
+    border-top: 5px solid $color;
+    transition: all 0.1s;
   }
   &::after {
     content: " ";
     display: block;
-    border-bottom: 2px solid $color;
+    border-bottom: 5px solid $color;
+    transition: all 0.1s;
   }
 }
 
@@ -24,17 +26,17 @@ $activeColor: #ddd;
   &.before::before {
     content: " ";
     display: block;
-    border-top: 2px solid $activeColor;
+    border-top: 5px solid $activeColor;
   }
   &.inner::after {
     content: " ";
     display: block;
-    border-bottom: 2px solid $activeColor;
+    border-bottom: 5px solid $activeColor;
     margin-left: 40px;
   }
   &.after::after {
     content: " ";
     display: block;
-    border-bottom: 2px solid $activeColor;
+    border-bottom: 5px solid $activeColor;
   }
 }
