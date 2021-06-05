@@ -75,13 +75,12 @@ export default class TreeItem extends Vue {
   }
 
   render(h: CreateElement) {
-    const { dragstart, dragover, drop } = this
 
     const { item, target, pos } = this.service.index.dragInfo
 
     return <li droppable on={{
-      dragover,
-      drop,
+      dragover: this.dragover,
+      drop: this.drop,
     }} class={`
       ${style.li}
       ${item === this.item.value && style.ondrag} 
@@ -90,7 +89,10 @@ export default class TreeItem extends Vue {
      `}>
       {/* draggable 标记什么元素可以开始拖拽  */}
 
-      <div><span draggable on={{ dragstart, drop }}>O</span> {this.item.value}</div>
+      <div><span draggable on={{
+        dragstart: this.dragstart,
+        drop: this.drop,
+      }}>O</span> {this.item.value}</div>
       <ul>
         {this.item.children.map(it => <TreeItem item={it}></TreeItem>)}
       </ul>
