@@ -7,7 +7,7 @@ export default class Index extends Vue {
 
   service = container.index
 
-  data: ITree<{ value: string }> = [
+  data: ITreeItem<{ value: string }>[] = this.initParent([
     { value: 'a', children: [] },
     {
       value: 'b', children: [
@@ -19,7 +19,11 @@ export default class Index extends Vue {
         { value: 'b2', children: [] },
       ],
     },
-  ]
+  ])
+
+  initParent(data: ITreeItem<{ value: string }>[]) {
+    return data
+  }
 
   dragend(e: DragEvent) {
     this.service.resetDragInfo()
@@ -34,7 +38,6 @@ export default class Index extends Vue {
       }}>
         {this.data.map(it => <TreeItem item={it}></TreeItem>)}
       </ul>
-
       {JSON.stringify(this.service.dragInfo)}
     </div>
   }
