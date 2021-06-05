@@ -13,13 +13,13 @@ $activeColor: #3e96e7;
     content: " ";
     display: block;
     border-top: 5px solid $color;
-    transition: all 0.1s;
+    // transition: all 0.1s;
   }
   &::after {
     content: " ";
     display: block;
     border-bottom: 5px solid $color;
-    transition: all 0.1s;
+    // transition: all 0.1s;
   }
 }
 // 被拖拽元素样式
