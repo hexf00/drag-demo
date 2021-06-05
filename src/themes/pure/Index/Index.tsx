@@ -21,30 +21,12 @@ export default class Index extends Vue {
     },
   ]
 
-  dragstart(e: DragEvent) {
-
-    console.log('ondragstart', e)
-  }
-
   dragend(e: DragEvent) {
     this.service.resetDragInfo()
   }
 
-  dragenter(e: DragEvent) {
-    console.log('ondragenter', e)
-  }
-
-  dragover(e: DragEvent) {
-    console.log('ondragover', e)
-    e.preventDefault()
-  }
-
-  dragleave(e: DragEvent) {
-    console.log('ondragleave', e)
-  }
-
   render(h: CreateElement) {
-    const { dragstart, dragend, dragenter, dragover, dragleave } = this
+    const { dragend } = this
 
     return <div>
       <ul on={{

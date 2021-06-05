@@ -18,11 +18,6 @@ export default class TreeItem extends Vue {
 
   dragstart(e: DragEvent) {
     this.service.index.dragInfo.item = this.item.value
-    console.log('ondragstart', this.item.value, e)
-  }
-
-  dragenter(e: DragEvent) {
-    console.log('ondragenter', this.item.value, e)
   }
 
   dragover(e: DragEvent) {
@@ -41,10 +36,6 @@ export default class TreeItem extends Vue {
 
     // 说明：事件应停止冒泡，否则会循环通知到父级
     e.stopPropagation()
-  }
-
-  dragleave(e: DragEvent) {
-    console.log('ondragleave', this.item.value, e)
   }
 
   calDropPosition(e: DragEvent) {
@@ -84,13 +75,14 @@ export default class TreeItem extends Vue {
   }
 
   render(h: CreateElement) {
-    const { dragstart, dragenter, dragover, drop, dragleave } = this
+    const { dragstart, dragover, drop } = this
 
     const { item, target, pos } = this.service.index.dragInfo
 
-    console.log(target === this.item.value)
-
-    return <li droppable on={{ dragenter, dragover, drop, dragleave }} class={`
+    return <li droppable on={{
+      dragover,
+      drop,
+    }} class={`
       ${style.li}
       ${item === this.item.value && style.ondrag} 
       ${target === this.item.value && target !== item && style.ondrop} 
