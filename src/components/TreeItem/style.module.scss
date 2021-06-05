@@ -18,10 +18,11 @@ $activeColor: #3e96e7;
     transition: all 0.1s;
   }
 }
-
+// 被拖拽元素样式
 .ondrag {
   color: #ddd;
 }
+// 释放位置的样式
 .ondrop {
   &.before::before {
     content: " ";
