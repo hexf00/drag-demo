@@ -1,9 +1,14 @@
 import { Vue, Component, Prop } from 'vue-property-decorator'
 import { CreateElement } from 'vue'
 import style from './style.module.scss'
+import TreeItemService from './TreeItem.service'
+import container from '@/store/Container'
+import { Concat } from 'ioc-di'
 
 @Component
 export default class TreeItem extends Vue {
+  service = Concat(container, new TreeItemService)
+
   // 配置JSX中属性类型检查
   $props!: {
     item: ITreeItem<{ value: string }>
@@ -12,7 +17,7 @@ export default class TreeItem extends Vue {
   @Prop(Object) item!: ITreeItem<{ value: string }>
 
   dragstart(e: DragEvent) {
-    this.$set(this.$root.$data, 'item', this.item.value)
+    this.service.index.dragInfo.item = this.item.value
     console.log('ondragstart', this.item.value, e)
   }
 
@@ -21,12 +26,8 @@ export default class TreeItem extends Vue {
   }
 
   dragover(e: DragEvent) {
-    this.$set(this.$root.$data, 'target', this.item.value)
-
-    const pos = this.calDropPosition(e)
-
-    this.$set(this.$root.$data, 'pos', pos)
-    // console.log('ondragover', this.item.value, pos, e.target, e)
+    this.service.index.dragInfo.target = this.item.value
+    this.service.index.dragInfo.pos = this.calDropPosition(e)
 
     // 说明：没有这句drop事件将不会被触发
     e.preventDefault()
@@ -36,9 +37,8 @@ export default class TreeItem extends Vue {
   }
 
   drop(e: DragEvent) {
-    this.$set(this.$root.$data, 'status', true)
+    this.service.index.dragInfo.status = true
 
-    console.log('ondrop', this.item.value, e)
     // 说明：事件应停止冒泡，否则会循环通知到父级
     e.stopPropagation()
   }
@@ -85,9 +85,8 @@ export default class TreeItem extends Vue {
 
   render(h: CreateElement) {
     const { dragstart, dragenter, dragover, drop, dragleave } = this
-    // eslint-disable-next-line
-    // @ts-ignore
-    const { item, target, pos } = this.$root.$data
+
+    const { item, target, pos } = this.service.index.dragInfo
 
     console.log(target === this.item.value)
 
@@ -95,7 +94,7 @@ export default class TreeItem extends Vue {
       ${style.li}
       ${item === this.item.value && style.ondrag} 
       ${target === this.item.value && target !== item && style.ondrop} 
-      ${style[pos]}
+      ${pos && style[pos]}
      `}>
       {/* draggable 标记什么元素可以开始拖拽  */}
 

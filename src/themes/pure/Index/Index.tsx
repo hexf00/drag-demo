@@ -1,8 +1,11 @@
 import { Vue, Component } from 'vue-property-decorator'
 import { CreateElement } from 'vue'
 import TreeItem from '@/components/TreeItem/TreeItem'
+import container from '@/store/Container'
 @Component
 export default class Index extends Vue {
+
+  service = container.index
 
   data: ITree<{ value: string }> = [
     { value: 'a', children: [] },
@@ -24,15 +27,7 @@ export default class Index extends Vue {
   }
 
   dragend(e: DragEvent) {
-    // eslint-disable-next-line
-    // @ts-ignore
-    console.log('ondragend', this.$root.item, this.$root.target, this.$root.$data.pos, this.$root.$data.status, e)
-
-    this.$set(this.$root.$data, 'item', null)
-    this.$set(this.$root.$data, 'target', null)
-    this.$set(this.$root.$data, 'pos', null)
-    this.$set(this.$root.$data, 'status', false)
-
+    this.service.resetDragInfo()
   }
 
   dragenter(e: DragEvent) {
@@ -57,6 +52,8 @@ export default class Index extends Vue {
       }}>
         {this.data.map(it => <TreeItem item={it}></TreeItem>)}
       </ul>
+
+      {JSON.stringify(this.service.dragInfo)}
     </div>
   }
 }
