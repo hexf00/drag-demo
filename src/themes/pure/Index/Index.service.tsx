@@ -49,10 +49,28 @@ export default class IndexService {
     return item
   }
 
-  //运行拖拽
+  //执行拖拽
   drag() {
     const { status, item, target, pos } = this.dragInfo
-    if (!status) return
+    if (status && item && target && pos) {
+
+      //在旧位置删除
+      const itemParent = item.parent?.children || this.data
+      const itemIndex = itemParent.indexOf(item)
+      itemIndex !== -1 && itemParent.splice(itemIndex, 1)
+
+      //在新位置插入
+      if (pos === 'before' || pos === 'after') {
+        item.parent = target.parent
+        const parentList = item.parent?.children || this.data
+        const targetIndex = parentList.indexOf(target)
+
+        parentList.splice(pos === 'before' ? targetIndex : targetIndex + 1, 0, item)
+      } else {
+        item.parent = target
+        item.parent.children.push(item)
+      }
+    }
   }
 
 }
