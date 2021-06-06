@@ -102,7 +102,6 @@ export default class TreeItem extends Vue {
       <div>
         <span draggable class={style.draggable} on={{
           dragstart: this.dragstart,
-          drop: this.drop,
         }}>O</span> {this.item.value}
       </div>
       <ul>
