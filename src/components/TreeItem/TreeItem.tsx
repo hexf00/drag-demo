@@ -5,6 +5,7 @@ import TreeItemService from './TreeItem.service'
 import container from '@/store/Container'
 import { Concat } from 'ioc-di'
 import { isParent } from '@/libs/TreeHelper'
+import classnames from 'classnames'
 
 @Component
 export default class TreeItem extends Vue {
@@ -92,13 +93,10 @@ export default class TreeItem extends Vue {
     return <li droppable on={{
       dragover: this.dragover,
       drop: this.drop,
-    }} class={`
-      ${style.li}
-      ${item === this.item && style.ondrag} 
-      ${target === this.item && pos && style.ondrop + ' ' + style[pos]}
-     `}>
+    }} class={classnames(style.li,
+      item === this.item && style.ondrag,
+      target === this.item && pos && style.ondrop + ' ' + style[pos])}>
       {/* draggable 标记什么元素可以开始拖拽  */}
-
       <div>
         <span draggable class={style.draggable} on={{
           dragstart: this.dragstart,
